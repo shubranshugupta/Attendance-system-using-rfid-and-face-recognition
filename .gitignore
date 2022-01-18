@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Simulation
+/Simulation/mini_project.pdsprj.SHUBHRANSHU-PC.shubh.workspace
+/Simulation/Project Backups
