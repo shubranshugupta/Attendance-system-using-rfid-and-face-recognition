@@ -89,4 +89,23 @@ def main(rollNo, new_user=False, thresh=0.5):
     cap.release()
 
 if __name__ == "__main__":
-    main(rollNo=32130, thresh=0.4)
+    while True:
+        try:
+            rollNo = int(input("Enter your Roll No.: "))
+        except ValueError:
+            print("Roll no should be int.")
+            continue
+
+        new_user = input("Are you new user(y/n): ").lower()
+        if new_user=="y":
+            new_user = True
+        elif new_user=="n":
+            new_user = False
+        else:
+            print("Enter valid Input")
+            continue
+
+        if type(rollNo) == int and type(new_user) == bool:
+            break
+    
+    main(rollNo=rollNo, new_user=new_user, thresh=0.4)
