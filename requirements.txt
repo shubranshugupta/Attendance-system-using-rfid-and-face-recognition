@@ -1,0 +1,4 @@
+git+https://github.com/rcmalli/keras-vggface.git
+Keras-Applications
+opencv-python
+tensorflow
