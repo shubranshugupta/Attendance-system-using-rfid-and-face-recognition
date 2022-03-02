@@ -77,12 +77,15 @@ def main(rollNo, new_user=False, thresh=0.5):
             if new_user:
                 save_embedding(rollNo, pred_embedding)
             else:
-                orig_embedding = load_embedding()[rollNo]
-                match, score = match_score(orig_embedding, pred_embedding, thresh)
-                if match:
-                    print('Match', score)
-                else:
-                    print('Not Match', score)
+                try:
+                    orig_embedding = load_embedding()[rollNo]
+                    match, score = match_score(orig_embedding, pred_embedding, thresh)
+                    if match:
+                        print('Match', score)
+                    else:
+                        print('Not Match', score)
+                except KeyError:
+                    print('User not found.\nTry to save user')
             break
 
     cv2.destroyAllWindows()
@@ -90,12 +93,6 @@ def main(rollNo, new_user=False, thresh=0.5):
 
 if __name__ == "__main__":
     while True:
-        try:
-            rollNo = int(input("Enter your Roll No.: "))
-        except ValueError:
-            print("Roll no should be int.")
-            continue
-
         new_user = input("Are you new user(y/n): ").lower()
         if new_user=="y":
             new_user = True
@@ -103,6 +100,12 @@ if __name__ == "__main__":
             new_user = False
         else:
             print("Enter valid Input")
+            continue
+
+        try:
+            rollNo = int(input("Enter your Roll No.: "))
+        except ValueError:
+            print("Roll no should be int.")
             continue
 
         if type(rollNo) == int and type(new_user) == bool:
