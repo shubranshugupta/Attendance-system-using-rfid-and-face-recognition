@@ -53,7 +53,6 @@ def main(rollNo, new_user=False, thresh=0.5):
     font = cv2.FONT_HERSHEY_SIMPLEX
     org = (50, 50)
     fontScale = 1
-    color = (0, 0, 0)
     thickness = 1
 
     i = 0
@@ -63,30 +62,38 @@ def main(rollNo, new_user=False, thresh=0.5):
             fdetect  = model.detectMultiScale(photo)
 
             if len(fdetect) == 1:
+                color = (0, 0, 0)
                 x, y, w, h = fdetect[0]
                 if (w>70 and w<450) and (h>70 and h<450):
                     photo1 = cv2.rectangle(photo, (x, y), (x+w, y+h), (0, 255, 0), 1)
                     photo1 = cv2.putText(photo1, 'Press Enter to confirm', org, font, fontScale, color, thickness, cv2.LINE_AA)
-                    cv2.imshow("Face", photo)
+                    cv2.imshow("Face", photo1)
+
+                if cv2.waitKey(100) == 13:
+                    photo = cv2.cvtColor(photo, cv2.COLOR_BGR2RGB)
+                    pred_embedding = get_embeddings(photo[y:y+h, x:x+w])
+                    if new_user:
+                        save_embedding(rollNo, pred_embedding)
+                    else:
+                        try:
+                            orig_embedding = load_embedding()[rollNo]
+                            match, score = match_score(orig_embedding, pred_embedding, thresh)
+                            if match:
+                                print('Match', score)
+                            else:
+                                print('Not Match', score)
+                        except KeyError:
+                            print('User not found.\nTry to save user')
+                    break
+            else:
+                color = (0, 0, 255)
+                photo1 = cv2.putText(photo, 'More than 1 face Detected.', org, font, fontScale, color, thickness, cv2.LINE_AA)
+                cv2.imshow("Face", photo1)
+
+                if cv2.waitKey(100) == 13:
+                    continue
         else:
             print('Error')
-        
-        if cv2.waitKey(100) == 13:
-            photo = cv2.cvtColor(photo, cv2.COLOR_BGR2RGB)
-            pred_embedding = get_embeddings(photo[y:y+h, x:x+w])
-            if new_user:
-                save_embedding(rollNo, pred_embedding)
-            else:
-                try:
-                    orig_embedding = load_embedding()[rollNo]
-                    match, score = match_score(orig_embedding, pred_embedding, thresh)
-                    if match:
-                        print('Match', score)
-                    else:
-                        print('Not Match', score)
-                except KeyError:
-                    print('User not found.\nTry to save user')
-            break
 
     cv2.destroyAllWindows()
     cap.release()
