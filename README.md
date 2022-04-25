@@ -7,7 +7,7 @@ Our system proposes using a combination of RFID and Facial Recognition Technique
 
 ### Circuit Diagram
 
-
+![circuit_diagram](https://github.com/shubranshugupta/Attendance-system-based-on-rfid-and-face-recognition/blob/main/images/block_digram.png?raw=true)
 
 ## How to use
 
