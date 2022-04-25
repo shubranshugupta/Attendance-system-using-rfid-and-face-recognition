@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 #Simulation
-Simulation/rfid_raspberry/*.pdsprj.SHUBHRANSHU-PC.shubh.workspace
+Simulation/*.workspace
 Simulation/Project Backups/*
 data/*
