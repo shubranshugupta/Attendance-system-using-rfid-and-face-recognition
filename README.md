@@ -3,9 +3,9 @@
 Our system proposes using a combination of RFID and Facial Recognition Techniques to streamline the process of marking attendance. The combination of RFID and Face Recognition provides 2-Factor Authentication to ensure accurate attendance.
 ### Block Diagram
 
-![block_diagram](images/block_diagram.png)
+![block_diagram](https://github.com/shubranshugupta/Attendance-system-based-on-rfid-and-face-recognition/blob/main/images/block_digram.png?raw=true)
 
-### Pin Configuration
+### Circuit Diagram
 
 
 
