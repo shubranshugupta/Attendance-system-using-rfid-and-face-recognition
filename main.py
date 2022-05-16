@@ -7,8 +7,6 @@ from src.button import button_loop
 from src.db import DBEmbedding
 
 import RPi.GPIO as GPIO
-# from time import sleep
-# import time
 
 
 def button_callback(ids):
@@ -20,7 +18,6 @@ if __name__ == '__main__':
     setup()
 
     try:
-        # t1 = time.time()
         while True:
             ids, rollNo = read()
             print(ids, rollNo)
@@ -33,9 +30,6 @@ if __name__ == '__main__':
                 button_loop(ids, button_callback)
             else:
                 attendance_via_camera(rollNo)
-            
-            # sleep(2)
-        # print(time.time()-t1)
     except Exception as e:
         print(e)
         GPIO.cleanup()
